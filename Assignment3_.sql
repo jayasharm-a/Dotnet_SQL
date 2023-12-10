@@ -153,8 +153,7 @@ LIMIT 10;
 SELECT SUM(amount) AS total_deposits
 FROM Transactions
 WHERE transaction_type = 'deposit'
-AND transaction_date = 'specific_date'; -- Replace 'specific_date' with the date you want to specify
-
+AND transaction_date = '2001-02-03'; 
 
 --4
 SELECT first_name, last_name, DOB
@@ -182,7 +181,7 @@ SELECT t.*, c.*
 FROM Transactions t
 JOIN Accounts a ON t.account_id = a.account_id
 JOIN Customers c ON a.customer_id = c.customer_id
-WHERE a.account_id = specific_account_id; -- Replace 'specific_account_id' with the account ID you want to query
+WHERE a.account_id = 102; 
 
 
 --8
@@ -293,7 +292,7 @@ GROUP BY account_type;
 SELECT t.*
 FROM Transactions t
 JOIN Accounts a ON t.account_id = a.account_id
-WHERE a.customer_id = <given_customer_id>; -- Replace <given_customer_id> with the actual ID
+WHERE a.customer_id = 4; 
 
 -- 10. Calculate the total balance for each account type, including a subquery within the SELECT clause
 SELECT account_type,
