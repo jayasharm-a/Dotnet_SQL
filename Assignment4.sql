@@ -227,6 +227,33 @@ SELECT p.*, c.*
 FROM Payments p
 LEFT JOIN Couriers c ON p.CourierID = c.CourierID;
 
+SELECT
+    Name,
+    Salary
+FROM
+    Employee
+WHERE
+    Salary > (SELECT AVG(Salary) FROM Employee);
+
+SELECT
+    SUM(Cost) AS TotalCost
+FROM
+    CourierServices
+WHERE
+    Cost < (SELECT MAX(Cost) FROM CourierServices);
+
+SELECT
+    Location.LocationID,
+    Location.LocationName,
+    MAX(Payment.Amount) AS MaxPaymentAmount
+FROM
+    Location
+JOIN
+    Payment ON Location.LocationID = Payment.LocationID
+GROUP BY
+    Location.LocationID, Location.LocationName
+HAVING
+    MAX(Payment.Amount) IS NOT NULL;
 
 SELECT c.CourierID, c.ReceiverUserID, SUM(p.Amount) AS TotalPaymentReceived
 FROM Couriers c
