@@ -1,3 +1,5 @@
+-- Task 1
+
 CREATE database HMBank;
 
 use HMBank;
@@ -28,6 +30,7 @@ CREATE TABLE Transactions(
 	FOREIGN KEY (account_id) REFERENCES Accounts(account_id)
 );
 
+--Task 2
 INSERT INTO Customers (customer_id, first_name, last_name, DOB, email, phone_number, address)
 VALUES
 (1,'hary', 'musk','2001-09-22','hary@gmail.com','2378212367','345 dfd st'),
@@ -71,90 +74,89 @@ VALUES
 (1010, 110,'deposit','895','2001-04-21');
 Select * from Transactions
 
-1
+--1
 SELECT c.first_name, c.last_name, a.account_type, c.email
 FROM Customers c
 JOIN Accounts a ON c.customer_id = a.customer_id;
 
-2
+--2
 SELECT c.first_name, c.last_name, t.transaction_type, t.amount, t.transaction_date
 FROM Customers c
 JOIN Accounts a ON c.customer_id = a.customer_id
 JOIN Transactions t ON a.account_id = t.account_id;
 
-3
+--3
 UPDATE Accounts
 SET balance = balance + :amount_to_increase
 WHERE account_id = :specific_account_id;
 
-4
+--4
 SELECT CONCAT(first_name, ' ', last_name) AS full_name
 FROM Customers;
 
-5
+--5
 DELETE FROM Accounts
 WHERE balance = 0 AND account_type = 'savings';
 
-6
+--6
 SELECT *
 FROM Customers
 WHERE address LIKE '%specific_city%';
 
-7
+--7
 SELECT balance
 FROM Accounts
 WHERE account_id = :specific_account_id;
 
-8
+--8
 SELECT *
 FROM Accounts
 WHERE account_type = 'current' AND balance > 1000;
 
-9
+--9
 SELECT *
 FROM Transactions
 WHERE account_id = :specific_account_id;
 
-10
+--10
 SELECT account_id, balance * (1 + (:interest_rate / 100)) - balance AS interest_accrued
 FROM Accounts
 WHERE account_type = 'savings';
 
-11
+--11
 SELECT *
 FROM Accounts
 WHERE balance < :overdraft_limit;
 
-12
+--12
 SELECT *
 FROM Customers
 WHERE address NOT LIKE '%specific_city%';
   
 
 
-  Task 3
+  --Task 3
 
-
-  1
+--1
   SELECT AVG(balance) AS average_balance
 FROM Accounts;
 
 
-2
+--2
 SELECT customer_id, account_id, balance
 FROM Accounts
 ORDER BY balance DESC
 LIMIT 10;
 
 
-3
+--3
 SELECT SUM(amount) AS total_deposits
 FROM Transactions
 WHERE transaction_type = 'deposit'
 AND transaction_date = 'specific_date'; -- Replace 'specific_date' with the date you want to specify
 
 
-4
+--4
 SELECT first_name, last_name, DOB
 FROM Customers
 ORDER BY DOB ASC LIMIT 1; -- Oldest
@@ -163,19 +165,19 @@ FROM Customers
 ORDER BY DOB DESC LIMIT 1; -- Newest
 
 
-5
+--5
 SELECT t.*, a.account_type
 FROM Transactions t
 JOIN Accounts a ON t.account_id = a.account_id;
 
 
-6
+--6
 SELECT c.*, a.*
 FROM Customers c
 JOIN Accounts a ON c.customer_id = a.customer_id;
 
 
-7
+--7
 SELECT t.*, c.*
 FROM Transactions t
 JOIN Accounts a ON t.account_id = a.account_id
@@ -183,40 +185,40 @@ JOIN Customers c ON a.customer_id = c.customer_id
 WHERE a.account_id = specific_account_id; -- Replace 'specific_account_id' with the account ID you want to query
 
 
-8
+--8
 SELECT customer_id, COUNT(*) AS num_accounts
 FROM Accounts
 GROUP BY customer_id
 HAVING COUNT(*) > 1;
 
 
-9
+--9
 SELECT transaction_type, SUM(CASE WHEN transaction_type = 'deposit' THEN amount ELSE -amount END) AS transaction_difference
 FROM Transactions
 WHERE transaction_type IN ('deposit', 'withdrawal')
 GROUP BY transaction_type;
 
 
-10
+--10
 SELECT account_id, AVG(balance) AS avg_daily_balance
 FROM Accounts
 GROUP BY account_id;
 
 
-11
+--11
 SELECT account_type, SUM(balance) AS total_balance
 FROM Accounts
 GROUP BY account_type;
 
 
-12
+--12
 SELECT account_id, COUNT(*) AS num_transactions
 FROM Transactions
 GROUP BY account_id
 ORDER BY num_transactions DESC;
 
 
-13
+--13
 SELECT c.customer_id, c.first_name, c.last_name, a.account_type, SUM(a.balance) AS aggregate_balance
 FROM Customers c
 JOIN Accounts a ON c.customer_id = a.customer_id
@@ -224,7 +226,7 @@ GROUP BY c.customer_id
 ORDER BY aggregate_balance DESC;
 
 
-14
+--14
 SELECT transaction_id, transaction_date, amount, account_id, COUNT(*) AS num_duplicates
 FROM Transactions
 GROUP BY transaction_date, amount, account_id
